@@ -6,11 +6,13 @@ jQuery.ajaxPrefilter(function(options) {
 
 $("#submit").on("click", function (event) {
     event.preventDefault();
-    console.log("yeet");
     $.ajax({
-        url: "https://tastedive.com/api/similar?q=" + $("#artist-search").val() + "&k=346362-Playlist-KUO95N87",
+        url: "https://tastedive.com/api/similar?q=" + $("#artist-search").val().trim() + "&k=346362-Playlist-KUO95N87",
         method: "GET"
     }).then(function (response) {
         console.log(response);
+        for(var i = 0; i < response.Similar.Results.length; i++){
+            console.log(response.Similar.Results[i].Name)
+        }
     });
 })
