@@ -21,7 +21,7 @@ $("#submit").on("click", function (event) {
     artistName = $("#artist-search").val().trim()
     artistNames.push(artistName);
     $.ajax({
-        url: "https://tastedive.com/api/similar?q=" + artistName + "&k=346362-Playlist-KUO95N87",
+        url: "https://tastedive.com/api/similar?q=" + artistName + "&limit=5&k=346362-Playlist-KUO95N87",
         method: "GET"
     }).then(function (response) {
         for (var i = 0; i < response.Similar.Results.length; i++) {
