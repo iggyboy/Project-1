@@ -87,11 +87,34 @@ function getSongInfo(){
         console.log(response);
         let songArray = response.tracks;
         for (var i = 0; i < songArray.length; i++){
-            songInfo['song'+i] = {title: songArray[i].name, artist: songArray[i].artists[0].name, album: songArray[i].album.name, year: songArray[i].album.release_date}
+            songInfo.push({title: songArray[i].name, artist: songArray[i].artists[0].name, album: songArray[i].album.name, year: songArray[i].album.release_date});
         }
         console.log("Created song data array at songInfo");
         console.log(songInfo);
+        tableMaker();
     })
+}
+
+function tableMaker() {
+    console.log("beginning table construction");
+    for (var i = 0; i < songInfo.length; i++) {
+        let songPoint = i;
+        let newTR = $("<tr>");
+        let songTD = $("<td>");
+        songTD.text(songInfo[songPoint].title);
+        let artistTD = $("<td>");
+        artistTD.text(songInfo[songPoint].artist);
+        let albumTD = $("<td>");
+        albumTD.text(songInfo[songPoint].album);
+        let releaseTD = $("<td>");
+        releaseTD.text(songInfo[songPoint].year);
+        newTR.append(songTD);
+        newTR.append(artistTD);
+        newTR.append(albumTD);
+        newTR.append(releaseTD);
+        $("#song-table").append(newTR);
+        console.log("pushing object to table");
+    }
 }
 
 function getTopTracks(artists) {
