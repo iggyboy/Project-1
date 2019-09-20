@@ -4,9 +4,21 @@
     color: antiquewhite;
 }
 
-body {
-    background-image: url("https://images.unsplash.com/photo-1498550744921-75f79806b8a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80");
-    background-size: 100%;    
+body{
+    background-image: url("https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80");
+    background-position: center center;
+  
+    /* Background image doesn't tile */
+    background-repeat: no-repeat;
+    
+    /* Background image is fixed in the viewport so that it doesn't move when 
+       the content's height is greater than the image's height */
+    background-attachment: fixed;
+    
+    /* This is what makes the background image rescale based
+       on the container's size */
+    background-size: cover;
+
 }
 #staticEmail2 {
     color: antiquewhite;
