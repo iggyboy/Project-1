@@ -19,7 +19,7 @@ jQuery.ajaxPrefilter(function (options) {
 
 $("#submit").on("click", function (event) {
     event.preventDefault();
-    artistName = $("#artist-search").val().trim()
+    artistName = $("#inputArtist").val().trim()
     artistNames.push(artistName);
     $.ajax({
         url: "https://tastedive.com/api/similar?q=" + artistName + "&limit=5&k=346362-Playlist-KUO95N87",
@@ -105,14 +105,19 @@ function tableMaker() {
     for (var i = 0; i < songInfo.length; i++) {
         let songPoint = i;
         let newTR = $("<tr>");
+        newTR.attr("class","thead-light");
         let songTD = $("<td>");
         songTD.text(songInfo[songPoint].title);
+        songTD.attr("scope", "col");
         let artistTD = $("<td>");
         artistTD.text(songInfo[songPoint].artist);
+        artistTD.attr("scope", "col");
         let albumTD = $("<td>");
         albumTD.text(songInfo[songPoint].album);
+        albumTD.attr("scope", "col");
         let releaseTD = $("<td>");
         releaseTD.text(songInfo[songPoint].year);
+        releaseTD.attr("scope", "col");
         newTR.append(songTD);
         newTR.append(artistTD);
         newTR.append(albumTD);

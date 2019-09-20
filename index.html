@@ -3,16 +3,23 @@
 ​
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-    <title>Document</title>
-</head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Musicify</title>
+        <link rel="stylesheet" type="text/css" media="screen" href="css/reset.css" />
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
+        ​
+    </head>
 ​
 
 <body>
@@ -25,7 +32,10 @@
                 <form class="form-inline d-flex justify-content-center">
                     <div class="form-group-outline-light mx-sm-3 mb-2">
                         <input type="text" class="form-control" id="inputArtist" placeholder="Search Artist">
-                        <button type="submit" class="btn btn-outline-light">Search</button>
+                        <button id="submit" type="submit" class="btn btn-outline-light">Search</button>
+                        <button id="create" type="submit" class="btn btn-primary">Create Playlist</button>
+                        <button id="login" type="submit" class="btn btn-primary">Log in to Spotify</button>
+                        <button id="playlist-btn" type="submit" class="btn btn-primary">Display playlist data</button>
                     </div>
                 </form>
             </div>
@@ -74,6 +84,8 @@
     <br>
     </div>
     <div class="embeddedPlaylist">
+        <iframe id="playlist" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX79Y9Kr2M2tM" width="100%"
+            height="500" frameborder="10" allowtransparency="true" allow="encrypted-media"></iframe>
     </div><br>
     <div class="container">
         <table class="table">
@@ -86,20 +98,13 @@
                     <th scope="col">Genre</th>
                 </tr>
             </thead>
-            <tbody class="thead-light">
-                <tr>
-                    <th scope="col">Open Space</th>
-                    <th scope="col">Piero Umiliani</th>
-                    <th scope="col">Today's Sound</th>
-                    <th scope="col">1971</th>
-                    <th scope="col">Jazz</th>
-                </tr>
+            <tbody id="song-table" class="thead-light">
             </tbody>
         </table>
     </div>
     ​
 
-    ​
+<script type="text/javascript" src="script.js"></script>
 </body>
 ​
 
