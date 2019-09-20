@@ -6,6 +6,7 @@ let trackIDs = [];
 let clientid = "d4ea6ecd0c0d405b82714e9a7d4b4c63";
 let accessToken = "";
 let userID = "";
+let currentURL = window.location.href;
 
 getToken();
 
@@ -35,6 +36,11 @@ $("#create").on("click", function (event) {
     event.preventDefault();
     makePlaylist(addTracks);
 });
+
+$("#login").on("click", function (event) {
+    event.preventDefault();
+    authorize();
+})
 
 function getArtists(artists, callback) {
     let artistCount = 0;
@@ -85,7 +91,7 @@ function getTopTracks(artists) {
 }
 
 function authorize() {
-    window.location.replace("https://accounts.spotify.com/authorize?client_id=d4ea6ecd0c0d405b82714e9a7d4b4c63&redirect_uri=http://127.0.0.1:5501/index.html&scope=user-read-private%20user-read-email%20playlist-modify-public%20playlist-modify-private&response_type=token&state=123");
+    window.location.replace("https://accounts.spotify.com/authorize?client_id=d4ea6ecd0c0d405b82714e9a7d4b4c63&redirect_uri=" + currentURL + "/index.html&scope=user-read-private%20user-read-email%20playlist-modify-public%20playlist-modify-private&response_type=token&state=123");
 }
 
 function getToken() {
@@ -107,26 +113,33 @@ function getToken() {
 }
 
 function addTracks(tracks) {
+    let trackRequest = "";
     let added = 0;
     for (let track of tracks) {
-        $.ajax({
-            url: "https://api.spotify.com/v1/playlists/" + playlistID + "/tracks?uris=spotify:track:" + track,
-            method: "POST",
-            headers: {
-                "Authorization": "Bearer " + accessToken
-            }
-        }).then(function (response) {
-            console.log(response);
-            if (added >= tracks.length-1){
-                console.log("Playlist fully populated, pushing to page");
-                $("#playlist").attr("src", "https://open.spotify.com/embed/playlist/"+playlistID);
-            }
-            added++;
-        });
+        if (added < tracks.length) {
+            trackRequest += "spotify:track:" + track + ",";
+        }
+        else if (added >= tracks.length) {
+            trackRequest += "spotify:track:" + track;
+        }
+        added++;
     }
+
+    $.ajax({
+        url: "https://api.spotify.com/v1/playlists/" + playlistID + "/tracks?uris=" + trackRequest,
+        method: "POST",
+        headers: {
+            "Authorization": "Bearer " + accessToken
+        }
+    }).then(function (response) {
+        console.log(response);
+        console.log("Playlist fully populated, pushing to page");
+        $("#playlist").attr("src", "https://open.spotify.com/embed/playlist/" + playlistID);
+
+    });
+
 }
 
-//this does not quite function yet V
 
 function makePlaylist(callback) {
     $.ajax({
