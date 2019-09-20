@@ -91,7 +91,7 @@ function getTopTracks(artists) {
 }
 
 function authorize() {
-    window.location.replace("https://accounts.spotify.com/authorize?client_id=d4ea6ecd0c0d405b82714e9a7d4b4c63&redirect_uri=" + currentURL + "/index.html&scope=user-read-private%20user-read-email%20playlist-modify-public%20playlist-modify-private&response_type=token&state=123");
+    window.location.replace("https://accounts.spotify.com/authorize?client_id=d4ea6ecd0c0d405b82714e9a7d4b4c63&redirect_uri=" + currentURL + "&scope=user-read-private%20user-read-email%20playlist-modify-public%20playlist-modify-private&response_type=token&state=123");
 }
 
 function getToken() {
@@ -110,6 +110,8 @@ function getToken() {
         userID = response.id;
         console.log("User ID retrieved as: " + userID);
     })
+    // let params = (new URL(document.location)).searchParams;
+    // accessToken = params.get('access_token');
 }
 
 function addTracks(tracks) {
