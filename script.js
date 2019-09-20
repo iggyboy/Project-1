@@ -43,6 +43,11 @@ $("#login").on("click", function (event) {
     authorize();
 })
 
+$("#playlist-btn").on("click", function(event){
+    event.preventDefault();
+    getSongInfo();
+})
+
 function getArtists(artists, callback) {
     let artistCount = 0;
 
