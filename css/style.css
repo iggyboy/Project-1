@@ -1,0 +1,17 @@
+body {
+    background-image: url("https://images.unsplash.com/photo-1498550744921-75f79806b8a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80");
+    background-size: 100%;  
+   
+}
+.jumbo-tron {
+    margin-top: 0;
+}
+.jumbotron {
+    text-align: center;
+
+    background-image: url("https://images.unsplash.com/photo-1453090927415-5f45085b65c0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=731&q=80");
+    color: antiquewhite;
+}
+#staticEmail2 {
+    color: antiquewhite;
+}
