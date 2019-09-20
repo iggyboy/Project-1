@@ -7,6 +7,7 @@ let clientid = "d4ea6ecd0c0d405b82714e9a7d4b4c63";
 let accessToken = "";
 let userID = "";
 let currentURL = window.location.href;
+let songInfo = [];
 
 getToken();
 
@@ -65,6 +66,34 @@ function getArtists(artists, callback) {
     }
 }
 
+function getSongInfo(){
+    let songQuery = "";
+    for (var i = 0; i < trackIDs.length; i++){
+        if(i >= trackIDs.length-1){
+            songQuery += trackIDs[i];
+        }
+        else{
+            songQuery += trackIDs[i]+",";
+        }
+    }
+    console.log("assembled info query : " +songQuery);
+    $.ajax({
+        url: "https://api.spotify.com/v1/tracks?ids="+songQuery,
+        method: "GET",
+        headers: {
+            "Authorization": "Bearer " + accessToken
+        }
+    }).then(function (response){
+        console.log(response);
+        let songArray = response.tracks;
+        for (var i = 0; i < songArray.length; i++){
+            songInfo['song'+i] = {title: songArray[i].name, artist: songArray[i].artists[0].name, album: songArray[i].album.name, year: songArray[i].album.release_date}
+        }
+        console.log("Created song data array at songInfo");
+        console.log(songInfo);
+    })
+}
+
 function getTopTracks(artists) {
     let artistCount = 0;
     for (let artist of artists) {
@@ -95,7 +124,7 @@ function authorize() {
 }
 
 function getToken() {
-    var url = window.location.href;
+    let url = window.location.href;
     url = url.substring(url.indexOf("#") + 14, url.indexOf("&"));
     console.log("returned access token: " + url);
     accessToken = url;
@@ -110,8 +139,7 @@ function getToken() {
         userID = response.id;
         console.log("User ID retrieved as: " + userID);
     })
-    // let params = (new URL(document.location)).searchParams;
-    // accessToken = params.get('access_token');
+    
 }
 
 function addTracks(tracks) {
@@ -162,3 +190,4 @@ function makePlaylist(callback) {
     });
 }
 
+ 
