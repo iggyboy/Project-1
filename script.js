@@ -32,19 +32,24 @@ $("#login").on("click", function (event) {
 })
 
 //function that runs when the submit button is pressed. just moved the code out of the click handler to make things easier
-function submit(){
-    artistName = $("#inputArtist").val().trim()
-    artistNames.push(artistName);
-    $.ajax({
-        url: "https://tastedive.com/api/similar?q=" + artistName + "&limit=5&k=346362-Playlist-KUO95N87",
-        method: "GET"
-    }).then(function (response) {
-        for (var i = 0; i < response.Similar.Results.length; i++) {
-            artistNames.push(response.Similar.Results[i].Name);
-        }
-        console.log(artistNames);
-        getArtists(artistNames, getTopTracks);
-    });
+function submit() {
+    if (accessToken != "noUser") {
+        artistName = $("#inputArtist").val().trim()
+        artistNames.push(artistName);
+        $.ajax({
+            url: "https://tastedive.com/api/similar?q=" + artistName + "&limit=5&k=346362-Playlist-KUO95N87",
+            method: "GET"
+        }).then(function (response) {
+            for (var i = 0; i < response.Similar.Results.length; i++) {
+                artistNames.push(response.Similar.Results[i].Name);
+            }
+            console.log(artistNames);
+            getArtists(artistNames, getTopTracks);
+        });
+    }
+    else {
+        alert("You need to log in to Spotify to do that.");
+    }
 }
 //takes an array of artist names in text and a callback function. converts array into numerical spoitify IDs and pushes to artistID array (global), then runs callbuck function using the array it populated
 function getArtists(artists, callback) {
@@ -71,38 +76,38 @@ function getArtists(artists, callback) {
 }
 
 //takes the array of track IDs and converts them into javascript objects containing song information,  then runs tableMaker
-function getSongInfo(){
+function getSongInfo() {
     //constructs query string
     let songQuery = "";
-    for (var i = 0; i < trackIDs.length; i++){
-        if(i >= trackIDs.length-1){
+    for (var i = 0; i < trackIDs.length; i++) {
+        if (i >= trackIDs.length - 1) {
             songQuery += trackIDs[i];
         }
-        else{
-            songQuery += trackIDs[i]+",";
+        else {
+            songQuery += trackIDs[i] + ",";
         }
     }
     //preforms api call for song information
-    console.log("assembled info query : " +songQuery);
+    console.log("assembled info query : " + songQuery);
     $.ajax({
-        url: "https://api.spotify.com/v1/tracks?ids="+songQuery,
+        url: "https://api.spotify.com/v1/tracks?ids=" + songQuery,
         method: "GET",
         headers: {
             "Authorization": "Bearer " + accessToken
         }
-    }).then(function (response){
+    }).then(function (response) {
         //puts the returned info into a global array for use later
         console.log(response);
         let songArray = response.tracks;
-        for (var i = 0; i < songArray.length; i++){
-            songInfo.push({title: songArray[i].name, artist: songArray[i].artists[0].name, album: songArray[i].album.name, year: songArray[i].album.release_date});
+        for (var i = 0; i < songArray.length; i++) {
+            songInfo.push({ title: songArray[i].name, artist: songArray[i].artists[0].name, album: songArray[i].album.name, year: songArray[i].album.release_date });
         }
         console.log("Created song data array at songInfo");
         console.log(songInfo);
         //adds images and titles to carousel
-        for (var i = 1; i < 7; i+=2){
-            $("#artist-"+i).attr("src", songArray[i].album.images[1].url);
-            $("#artist-name-"+i).text(songInfo[i].artist);
+        for (var i = 1; i < 7; i += 2) {
+            $("#artist-" + i).attr("src", songArray[i].album.images[1].url);
+            $("#artist-name-" + i).text(songInfo[i].artist);
         }
         tableMaker();
     })
@@ -114,7 +119,7 @@ function tableMaker() {
     for (var i = 0; i < songInfo.length; i++) {
         let songPoint = i;
         let newTR = $("<tr>");
-        newTR.attr("class","thead-light");
+        newTR.attr("class", "thead-light");
         let songTD = $("<td>");
         songTD.text(songInfo[songPoint].title);
         songTD.attr("scope", "col");
@@ -165,27 +170,41 @@ function getTopTracks(artists) {
 
 //calls the spotify authorization page and prompts the user to log in.
 function authorize() {
-    window.location.replace("https://accounts.spotify.com/authorize?client_id=d4ea6ecd0c0d405b82714e9a7d4b4c63&redirect_uri=" + currentURL + "&scope=user-read-private%20user-read-email%20playlist-modify-public%20playlist-modify-private&response_type=token&state=123");
+    if (accessToken === "" || accessToken === "noUser") {
+        window.location.replace("https://accounts.spotify.com/authorize?client_id=d4ea6ecd0c0d405b82714e9a7d4b4c63&redirect_uri=" + currentURL + "&scope=user-read-private%20user-read-email%20playlist-modify-public%20playlist-modify-private&response_type=token&state=123");
+    }
+    else {
+        alert("You are already logged in. If your session has expired, please refresh.")
+    }
 }
 
 //retrieves the user's authorization token (only works if they've authrorized)
 function getToken() {
     let url = window.location.href;
-    url = url.substring(url.indexOf("#") + 14, url.indexOf("&"));
-    console.log("returned access token: " + url);
-    accessToken = url;
-    $.ajax({
-        url: 'https://api.spotify.com/v1/me',
-        method: "GET",
-        headers: {
-            "Authorization": "Bearer " + accessToken
-        }
-    }).then(function (response) {
-        console.log(response);
-        userID = response.id;
-        console.log("User ID retrieved as: " + userID);
-    })
-    
+    if (url.includes("#")) {
+        url = url.substring(url.indexOf("#") + 14, url.indexOf("&"));
+        console.log("returned access token: " + url);
+        accessToken = url;
+    }
+    else {
+        accessToken = "noUser";
+    }
+    if (accessToken === "noUser") {
+        alert("Please log in to Spotify to continue using Musicify");
+    }
+    else {
+        $.ajax({
+            url: 'https://api.spotify.com/v1/me',
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + accessToken
+            }
+        }).then(function (response) {
+            console.log(response);
+            userID = response.id;
+            console.log("User ID retrieved as: " + userID);
+        })
+    }
 }
 
 //adds the tracks in the trackIDs array to the playlist and puts it on the embedded web player
@@ -237,4 +256,3 @@ function makePlaylist(callback) {
     });
 }
 
- 
