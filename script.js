@@ -1,3 +1,4 @@
+//global variable declarations
 let artistNames = [];
 let artistName = "";
 let playlistID = "";
@@ -9,16 +10,29 @@ let userID = "";
 let currentURL = window.location.href;
 let songInfo = [];
 
+//runs on page reload
 getToken();
 
+//ajax cors anywhere prefilter
 jQuery.ajaxPrefilter(function (options) {
     if (options.crossDomain && jQuery.support.cors) {
         options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
     }
 });
 
+//click handlers for different elements on the page
 $("#submit").on("click", function (event) {
     event.preventDefault();
+    submit();
+});
+
+$("#login").on("click", function (event) {
+    event.preventDefault();
+    authorize();
+})
+
+//function that runs when the submit button is pressed. just moved the code out of the click handler to make things easier
+function submit(){
     artistName = $("#inputArtist").val().trim()
     artistNames.push(artistName);
     $.ajax({
@@ -31,22 +45,7 @@ $("#submit").on("click", function (event) {
         console.log(artistNames);
         getArtists(artistNames, getTopTracks);
     });
-});
-
-$("#create").on("click", function (event) {
-    event.preventDefault();
-    makePlaylist(addTracks);
-});
-
-$("#login").on("click", function (event) {
-    event.preventDefault();
-    authorize();
-})
-
-$("#playlist-btn").on("click", function(event){
-    event.preventDefault();
-    getSongInfo();
-})
+}
 //takes an array of artist names in text and a callback function. converts array into numerical spoitify IDs and pushes to artistID array (global), then runs callbuck function using the array it populated
 function getArtists(artists, callback) {
     let artistCount = 0;
@@ -71,8 +70,9 @@ function getArtists(artists, callback) {
     }
 }
 
-//takes the array of track IDs and converts them into javascript objects containing song information, then runs tableMaker
+//takes the array of track IDs and converts them into javascript objects containing song information,  then runs tableMaker
 function getSongInfo(){
+    //constructs query string
     let songQuery = "";
     for (var i = 0; i < trackIDs.length; i++){
         if(i >= trackIDs.length-1){
@@ -82,6 +82,7 @@ function getSongInfo(){
             songQuery += trackIDs[i]+",";
         }
     }
+    //preforms api call for song information
     console.log("assembled info query : " +songQuery);
     $.ajax({
         url: "https://api.spotify.com/v1/tracks?ids="+songQuery,
@@ -90,6 +91,7 @@ function getSongInfo(){
             "Authorization": "Bearer " + accessToken
         }
     }).then(function (response){
+        //puts the returned info into a global array for use later
         console.log(response);
         let songArray = response.tracks;
         for (var i = 0; i < songArray.length; i++){
@@ -97,6 +99,11 @@ function getSongInfo(){
         }
         console.log("Created song data array at songInfo");
         console.log(songInfo);
+        //adds images and titles to carousel
+        for (var i = 1; i < 7; i+=2){
+            $("#artist-"+i).attr("src", songArray[i].album.images[1].url);
+            $("#artist-name-"+i).text(songInfo[i].artist);
+        }
         tableMaker();
     })
 }
@@ -147,6 +154,7 @@ function getTopTracks(artists) {
             }
             if (artistCount >= artists.length - 1) {
                 console.log("Finished generating track ID list");
+                makePlaylist(addTracks);
             }
             artistCount++;
         }).catch(function (error) {
@@ -204,7 +212,7 @@ function addTracks(tracks) {
         console.log(response);
         console.log("Playlist fully populated, pushing to page");
         $("#playlist").attr("src", "https://open.spotify.com/embed/playlist/" + playlistID);
-
+        getSongInfo();
     });
 
 }

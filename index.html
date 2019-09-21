@@ -33,9 +33,7 @@
                     <div class="form-group-outline-light mx-sm-3 mb-2">
                         <input type="text" class="form-control" id="inputArtist" placeholder="Search Artist">
                         <button id="submit" type="submit" class="btn btn-outline-light">Search</button>
-                        <button id="create" type="submit" class="btn btn-primary">Create Playlist</button>
                         <button id="login" type="submit" class="btn btn-primary">Log in to Spotify</button>
-                        <button id="playlist-btn" type="submit" class="btn btn-primary">Display playlist data</button>
                     </div>
                 </form>
             </div>
@@ -52,21 +50,21 @@
                 </ol>
                 <div class="carousel-inner" style="width: 350px; height: 350px;  margin: 0 auto;">
                     <div class="carousel-item active">
-                        <img src="https://via.placeholder.com/300" class="d-block w-100" alt="placeholder">
+                        <img id="artist-1" src="https://via.placeholder.com/300" class="d-block w-100" alt="placeholder">
                         <div class="carousel-caption d-none d-md-block">
-                            <p>Artist 1 Name</p>
+                            <p id="artist-name-1">Artist 1 Name</p>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="https://via.placeholder.com/300" class="d-block w-100" alt="...">
+                        <img id="artist-3" src="https://via.placeholder.com/300" class="d-block w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
-                            <p>Artist 2 Name</p>
+                            <p id="artist-name-3">Artist 2 Name</p>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="https://via.placeholder.com/300" class="d-block w-100" alt="...">
+                        <img id="artist-5" src="https://via.placeholder.com/300" class="d-block w-100" alt="...">
                         <div class="carousel-caption d-none d-md-block">
-                            <p>Artist 3 Name</p>
+                            <p id="artist-name-5">Artist 3 Name</p>
                         </div>
                     </div>
                 </div>
@@ -95,7 +93,6 @@
                     <th scope="col">Artist</th>
                     <th scope="col">Album</th>
                     <th scope="col">Year</th>
-                    <th scope="col">Genre</th>
                 </tr>
             </thead>
             <tbody id="song-table" class="thead-light">
