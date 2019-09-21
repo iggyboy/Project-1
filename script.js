@@ -33,6 +33,12 @@ $("#login").on("click", function (event) {
 
 //function that runs when the submit button is pressed. just moved the code out of the click handler to make things easier
 function submit() {
+    artistNames = [];
+    artistName = "";
+    playlistID = "";
+    artistID = [];
+    trackIDs = [];
+    songInfo = [];
     if (accessToken != "noUser") {
         artistName = $("#inputArtist").val().trim()
         artistNames.push(artistName);
@@ -115,6 +121,8 @@ function getSongInfo() {
 
 //puts the information from songInfo array on the page
 function tableMaker() {
+    $("#song-table").empty();
+    console.log("cleared exsisting table(s)")
     console.log("beginning table construction");
     for (var i = 0; i < songInfo.length; i++) {
         let songPoint = i;
