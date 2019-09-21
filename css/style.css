@@ -1,6 +1,6 @@
 body {
-    /* background-image: url("https://images.unsplash.com/photo-1498550744921-75f79806b8a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"); */
-    /* background-image: url("https://images.unsplash.com/photo-1530508777238-14544088c3ed?ixlib=rb-1.2.1&auto=format&fit=crop&w=1534&q=80"); */
+    background-image: url("https://images.unsplash.com/photo-1498550744921-75f79806b8a7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80");
+    background-image: url("https://images.unsplash.com/photo-1530508777238-14544088c3ed?ixlib=rb-1.2.1&auto=format&fit=crop&w=1534&q=80");
     background-size: 100%;  
     box-sizing: border-box;
     background-position: center center;
@@ -18,7 +18,7 @@ body {
     text-align: center;
     background-image: url("https://images.unsplash.com/photo-1453090927415-5f45085b65c0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=731&q=80");
     background-size: cover;
-     color: antiquewhite;
+    color: antiquewhite;
 }
 #staticEmail2 {
     color: antiquewhite;
@@ -29,4 +29,9 @@ body {
 }
 img {
     border: 3px solid rgb(255, 221, 221);
+}
+
+tr {
+    background-color: rgba(232, 230, 227, 50%);
+    color: white;
 }
