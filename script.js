@@ -47,7 +47,7 @@ $("#playlist-btn").on("click", function(event){
     event.preventDefault();
     getSongInfo();
 })
-
+//takes an array of artist names in text and a callback function. converts array into numerical spoitify IDs and pushes to artistID array (global), then runs callbuck function using the array it populated
 function getArtists(artists, callback) {
     let artistCount = 0;
 
@@ -71,6 +71,7 @@ function getArtists(artists, callback) {
     }
 }
 
+//takes the array of track IDs and converts them into javascript objects containing song information, then runs tableMaker
 function getSongInfo(){
     let songQuery = "";
     for (var i = 0; i < trackIDs.length; i++){
@@ -100,6 +101,7 @@ function getSongInfo(){
     })
 }
 
+//puts the information from songInfo array on the page
 function tableMaker() {
     console.log("beginning table construction");
     for (var i = 0; i < songInfo.length; i++) {
@@ -127,6 +129,7 @@ function tableMaker() {
     }
 }
 
+//using numerical spotify IDs in an array (artistID) this function retrieves the top tracks of the artists specified and puts them in the trackIDs array (global)
 function getTopTracks(artists) {
     let artistCount = 0;
     for (let artist of artists) {
@@ -152,10 +155,12 @@ function getTopTracks(artists) {
     }
 }
 
+//calls the spotify authorization page and prompts the user to log in.
 function authorize() {
     window.location.replace("https://accounts.spotify.com/authorize?client_id=d4ea6ecd0c0d405b82714e9a7d4b4c63&redirect_uri=" + currentURL + "&scope=user-read-private%20user-read-email%20playlist-modify-public%20playlist-modify-private&response_type=token&state=123");
 }
 
+//retrieves the user's authorization token (only works if they've authrorized)
 function getToken() {
     let url = window.location.href;
     url = url.substring(url.indexOf("#") + 14, url.indexOf("&"));
@@ -175,6 +180,7 @@ function getToken() {
     
 }
 
+//adds the tracks in the trackIDs array to the playlist and puts it on the embedded web player
 function addTracks(tracks) {
     let trackRequest = "";
     let added = 0;
@@ -203,7 +209,7 @@ function addTracks(tracks) {
 
 }
 
-
+//creates a playlist on the user's spotify account, then callbacks to addtracks
 function makePlaylist(callback) {
     $.ajax({
         url: "https://api.spotify.com/v1/users/" + userID + "/playlists",
