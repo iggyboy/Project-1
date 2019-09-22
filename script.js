@@ -1,3 +1,6 @@
+//waits for page to load
+$( document ).ready()
+
 //global variable declarations
 let artistNames = [];
 let artistName = "";
@@ -33,12 +36,14 @@ $("#login").on("click", function (event) {
 
 //function that runs when the submit button is pressed. just moved the code out of the click handler to make things easier
 function submit() {
+    //clears global variables for subsequent searches
     artistNames = [];
     artistName = "";
     playlistID = "";
     artistID = [];
     trackIDs = [];
     songInfo = [];
+    //if user is logged in (access token from query URL present)
     if (accessToken != "noUser") {
         artistName = $("#inputArtist").val().trim()
         artistNames.push(artistName);
@@ -53,6 +58,7 @@ function submit() {
             getArtists(artistNames, getTopTracks);
         });
     }
+    //if user is not logged in
     else {
         alert("You need to log in to Spotify to do that.");
     }
@@ -121,9 +127,11 @@ function getSongInfo() {
 
 //puts the information from songInfo array on the page
 function tableMaker() {
+    //empties exsisting table(s)
     $("#song-table").empty();
     console.log("cleared exsisting table(s)")
     console.log("beginning table construction");
+    //constructs new table, appends to table element
     for (var i = 0; i < songInfo.length; i++) {
         let songPoint = i;
         let newTR = $("<tr>");
@@ -151,7 +159,9 @@ function tableMaker() {
 
 //using numerical spotify IDs in an array (artistID) this function retrieves the top tracks of the artists specified and puts them in the trackIDs array (global)
 function getTopTracks(artists) {
+    //couting variable
     let artistCount = 0;
+    //spotify top track api call
     for (let artist of artists) {
         console.log("getting top tracks for " + artist);
         $.ajax({
@@ -178,28 +188,34 @@ function getTopTracks(artists) {
 
 //calls the spotify authorization page and prompts the user to log in.
 function authorize() {
+    //if user is not currently logged in (getToken function found no access token), prompts user to authorize the app
     if (accessToken === "" || accessToken === "noUser") {
         window.location.replace("https://accounts.spotify.com/authorize?client_id=d4ea6ecd0c0d405b82714e9a7d4b4c63&redirect_uri=" + currentURL + "&scope=user-read-private%20user-read-email%20playlist-modify-public%20playlist-modify-private&response_type=token&state=123");
     }
+    // user cannot log in if already logged in
     else {
         alert("You are already logged in. If your session has expired, please refresh.")
     }
 }
 
-//retrieves the user's authorization token (only works if they've authrorized)
+//retrieves the user's authorization token
 function getToken() {
     let url = window.location.href;
+    //checks if URL contains the query url from the spotify callback
     if (url.includes("#")) {
         url = url.substring(url.indexOf("#") + 14, url.indexOf("&"));
         console.log("returned access token: " + url);
         accessToken = url;
     }
+    //otherwise, it is set to noUser
     else {
         accessToken = "noUser";
     }
+    //prompts the huse to log in
     if (accessToken === "noUser") {
         alert("Please log in to Spotify to continue using Musicify");
     }
+    //if there is an access token present, userID is retrieved from spotify api
     else {
         $.ajax({
             url: 'https://api.spotify.com/v1/me',
@@ -219,6 +235,7 @@ function getToken() {
 function addTracks(tracks) {
     let trackRequest = "";
     let added = 0;
+    //query string assembly
     for (let track of tracks) {
         if (added < tracks.length) {
             trackRequest += "spotify:track:" + track + ",";
@@ -228,7 +245,7 @@ function addTracks(tracks) {
         }
         added++;
     }
-
+    //api call using query string
     $.ajax({
         url: "https://api.spotify.com/v1/playlists/" + playlistID + "/tracks?uris=" + trackRequest,
         method: "POST",
@@ -246,6 +263,7 @@ function addTracks(tracks) {
 
 //creates a playlist on the user's spotify account, then callbacks to addtracks
 function makePlaylist(callback) {
+    //calls the spotify api to create an empty playlist for the user
     $.ajax({
         url: "https://api.spotify.com/v1/users/" + userID + "/playlists",
         method: "POST",
