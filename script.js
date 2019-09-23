@@ -13,6 +13,7 @@ let userID = "";
 let currentURL = window.location.href;
 let songInfo = [];
 
+
 //runs on page reload
 getToken();
 
@@ -71,7 +72,6 @@ function submit() {
 //takes an array of artist names in text and a callback function. converts array into numerical spoitify IDs and pushes to artistID array (global), then runs callbuck function using the array it populated
 function getArtists(artists, callback) {
     let artistCount = 0;
-
     for (let artist of artists) {
         console.log("getting id for " + artist);
         $.ajax({
