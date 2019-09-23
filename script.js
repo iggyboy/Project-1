@@ -1,5 +1,5 @@
 //waits for page to load
-$( document ).ready()
+$(document).ready()
 
 //global variable declarations
 let artistNames = [];
@@ -55,7 +55,12 @@ function submit() {
                 artistNames.push(response.Similar.Results[i].Name);
             }
             console.log(artistNames);
-            getArtists(artistNames, getTopTracks);
+            if (artistNames.length < 2) {
+                alert("Sorry, we didn't return any results for the artist " + artistName + ". Try checking the spelling and try again");
+            }
+            else {
+                getArtists(artistNames, getTopTracks);
+            }
         });
     }
     //if user is not logged in
