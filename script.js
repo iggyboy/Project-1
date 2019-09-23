@@ -122,7 +122,7 @@ function getSongInfo() {
         console.log("Created song data array at songInfo");
         console.log(songInfo);
         //adds images and titles to carousel
-        for (var i = 1; i < 7; i += 2) {
+        for (var i = 1; i < 11; i += 2) {
             $("#artist-" + i).attr("src", songArray[i].album.images[1].url);
             $("#artist-name-" + i).text(songInfo[i].artist);
         }
