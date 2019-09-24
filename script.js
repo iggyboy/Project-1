@@ -39,6 +39,11 @@ $("#login").on("click", function (event) {
     authorize();
 })
 
+function alerter(str){
+    $("#alert-text").text(str);
+    $('#alert-box').modal(focus)
+}
+
 //function that runs when the submit button is pressed. just moved the code out of the click handler to make things easier
 function submit() {
     //clears global variables for subsequent searches
@@ -68,7 +73,7 @@ function submit() {
                 if (artistNames.length < 2) {
                     document.getElementById("spinner").style.visibility = "hidden";
                     document.getElementById("fader").style.visibility = "hidden";
-                    alert("Sorry, we didn't return any results for the artist " + artistName + ". Try checking the spelling and try again");
+                    alerter("Sorry, we didn't return any results for the artist " + artistName + ". Try checking the spelling and try again");
                 }
                 else {
                     getArtists(artistNames, getTopTracks);
@@ -77,7 +82,7 @@ function submit() {
         }
         //if user is not logged in
         else {
-            alert("You need to log in to Spotify to do that.");
+            alerter("You need to log in to Spotify to do that.");
             document.getElementById("spinner").style.visibility = "hidden";
             document.getElementById("fader").style.visibility = "hidden";
             document.getElementById("pl-table").style.visibility = "hidden";
@@ -216,7 +221,7 @@ function authorize() {
     }
     // user cannot log in if already logged in
     else {
-        alert("You are already logged in. If your session has expired, please refresh.")
+        alerter("You are already logged in. If your session has expired, please refresh.")
     }
 }
 
@@ -235,7 +240,7 @@ function getToken() {
     }
     //prompts the huse to log in
     if (accessToken === "noUser") {
-        alert("Please log in to Spotify to continue using Musicify");
+        return;
     }
     //if there is an access token present, userID is retrieved from spotify api
     else {
