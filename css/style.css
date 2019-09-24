@@ -5,13 +5,8 @@ body {
     background-size: 100%;  
     box-sizing: border-box;
     background-position: center center;
-   /* Background image doesn't tile */
    background-repeat: no-repeat;
-   /* Background image is fixed in the viewport so that it doesn't move when
-      the content's height is greater than the image's height */
    background-attachment: fixed;
-   /* This is what makes the background image rescale based
-      on the container's size */
    background-size: cover;
    
 }
@@ -20,14 +15,20 @@ body {
     text-align: center;
     /* background-image: url("https://images.unsplash.com/photo-1453090927415-5f45085b65c0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=731&q=80"); */
     /* background-image: url("https://images.unsplash.com/photo-1537705738815-0616c58a641e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=667&q=80"); */
-    background-image: url("https://images.unsplash.com/photo-1560301622-c8eb948fa9ce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80");
+    /* background-image: url("https://images.unsplash.com/photo-1560301622-c8eb948fa9ce?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"); */
+    background-image: url('../images/image1.jpg'); 
     background-size: cover;
-}
-
-#header {
     color: antiquewhite;
     text-shadow: 2px 2px #1a1919;
     font-weight: bold;
+    
+    
+}
+#headerText {
+    color: antiquewhite;
+    text-shadow: 2px 2px #1a1919;
+    font-weight: bold;
+    opacity: 1;
 }
 
 .bd-example {
@@ -44,4 +45,9 @@ tr {
 }
 #playlist {
     border: 1px solid rgb(255, 221, 221);
+}
+@media only screen and (max-width: 640px){
+    .container {
+        width: 100%;
+    }
 }

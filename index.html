@@ -13,17 +13,29 @@
 </head>
 
 <body>
-    <div class="jumbotron">
-        <div class="container" id="header">
-            <h1 class="display-4"><strong>Musicify</strong></h1>
-            <p class="lead"><strong>Discover Artists with the Push of a Button</strong></p>
-            <form class="form-inline d-flex justify-content-center">
-                <div class="form-group-outline-light mx-sm-3 mb-2">
-                    <input type="text" class="form-control" id="inputArtist" placeholder="Search Artist">
-                    <button id="submit" type="submit" class="btn btn-outline-light">Search</button>
-                    <button id="login" type="submit" class="btn btn-outline-light">Log in to Spotify</button>
-                </div>
-            </form>
+    <div id="fader" style="
+        height:  100vh;
+        background-color: #0000008a;
+        width: 100%;
+        position: absolute;
+        z-index: 100;
+    "> </div>
+    <div class="jumbo-tron">
+        <div class="jumbotron">
+            <div class="container" id="headerText">
+                <h1 class="display-4"><strong>Musicify</strong></h1>
+                <p class="lead"><strong>Discover New Artists with the Push of a Button</strong></p>
+                <form class="form-inline d-flex justify-content-center">
+                    <div class="form-group-outline-light mx-sm-3 mb-2">
+                        <input type="text" class="form-control" id="inputArtist" placeholder="Search Artist">
+                        <button id="submit" type="submit" class="btn btn-outline-light">Search</button>
+                        <button id="login" type="submit" class="btn btn-outline-light">Log in to Spotify</button>
+                        <div id="spinner" class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div> ​
     <div class="container">
@@ -118,7 +130,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-    <!-- <script type="text/javascript" src="script.js"></script> -->
+    <script type="text/javascript" src="script.js"></script>
 </body>
 ​
 
