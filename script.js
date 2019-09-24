@@ -167,13 +167,9 @@ function tableMaker() {
         let albumTD = $("<td>");
         albumTD.text(songInfo[songPoint].album);
         albumTD.attr("scope", "col");
-        let releaseTD = $("<td>");
-        releaseTD.text(songInfo[songPoint].year);
-        releaseTD.attr("scope", "col");
         newTR.append(songTD);
         newTR.append(artistTD);
         newTR.append(albumTD);
-        newTR.append(releaseTD);
         $("#song-table").append(newTR);
         console.log("pushing object to table");
         isRunning = false;
