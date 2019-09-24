@@ -30,6 +30,7 @@ body {
     font-weight: bold;
     opacity: 1;
 }
+
 .bd-example {
     width: 500px;
     margin: 0 auto;
@@ -45,8 +46,26 @@ tr {
 #playlist {
     border: 1px solid rgb(255, 221, 221);
 }
+
+
+@media only screen and (max-width: 768px){
+    .container {
+        width: 100%;
+    }
+
+    .bd-example {
+        width: 100%;
+    }
+}
 @media only screen and (max-width: 640px){
     .container {
+        width: 100%;
+    }
+    .bd-example {
+        width: 100%;
+    }
+
+    .jumbotron {
         width: 100%;
     }
 }
