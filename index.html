@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +11,15 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
 </head>
+
 <body>
+    <div id="fader" style="
+        height:  100vh;
+        background-color: #0000008a;
+        width: 100%;
+        position: absolute;
+        z-index: 100;
+    "> </div>
     <div class="jumbo-tron">
         <div class="jumbotron">
             <div class="container">
@@ -21,11 +30,14 @@
                         <input type="text" class="form-control" id="inputArtist" placeholder="Search Artist">
                         <button id="submit" type="submit" class="btn btn-outline-light">Search</button>
                         <button id="login" type="submit" class="btn btn-outline-light">Log in to Spotify</button>
+                        <div id="spinner" class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
                     </div>
                 </form>
             </div>
         </div>
-    </div>    ​
+    </div> ​
     <div class="container">
         <div class="bd-example">
             <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
@@ -38,32 +50,40 @@
                 </ol>
                 <div class="carousel-inner" style="width: 350px; height: 350px;  margin: 0 auto;">
                     <div class="carousel-item active">
-                        <img id="artist-1" src="https://upload.wikimedia.org/wikipedia/en/3/3b/Dark_Side_of_the_Moon.png" class="d-block w-100"
-                            alt="placeholder">
+                        <img id="artist-1"
+                            src="https://upload.wikimedia.org/wikipedia/en/3/3b/Dark_Side_of_the_Moon.png"
+                            class="d-block w-100" alt="placeholder">
                         <div class="carousel-caption d-none d-md-block">
                             <p id="artist-name-1"></p>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img id="artist-3" src="https://upload.wikimedia.org/wikipedia/en/5/53/Beyonce_-_Lemonade_%28Official_Album_Cover%29.png"  class="d-block w-100">
+                        <img id="artist-3"
+                            src="https://upload.wikimedia.org/wikipedia/en/5/53/Beyonce_-_Lemonade_%28Official_Album_Cover%29.png"
+                            class="d-block w-100">
                         <div class="carousel-caption d-none d-md-block">
                             <p id="artist-name-3"></p>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img id="artist-5" src="https://upload.wikimedia.org/wikipedia/en/a/ab/13th_Floor_Elevators-The_Psychedelic_Sounds_of_the_13th_Floor_Elevators_%28album_cover%29.jpg" class="d-block w-100" alt="placeholder3">
+                        <img id="artist-5"
+                            src="https://upload.wikimedia.org/wikipedia/en/a/ab/13th_Floor_Elevators-The_Psychedelic_Sounds_of_the_13th_Floor_Elevators_%28album_cover%29.jpg"
+                            class="d-block w-100" alt="placeholder3">
                         <div class="carousel-caption d-none d-md-block">
                             <p id="artist-name-5"></p>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img id="artist-7" src="https://upload.wikimedia.org/wikipedia/en/f/f1/808s_%26_Heartbreak.png" class="d-block w-100" alt="placeholder4">
+                        <img id="artist-7" src="https://upload.wikimedia.org/wikipedia/en/f/f1/808s_%26_Heartbreak.png"
+                            class="d-block w-100" alt="placeholder4">
                         <div class="carousel-caption d-none d-md-block">
-                            <p id="artist-name-7" ></p>
+                            <p id="artist-name-7"></p>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img id="artist-9" src="https://upload.wikimedia.org/wikipedia/en/1/10/Childish_Gambino_-_Awaken%2C_My_Love%21.png" class="d-block w-100" alt="placeholder5">
+                        <img id="artist-9"
+                            src="https://upload.wikimedia.org/wikipedia/en/1/10/Childish_Gambino_-_Awaken%2C_My_Love%21.png"
+                            class="d-block w-100" alt="placeholder5">
                         <div class="carousel-caption d-none d-md-block">
                             <p id="artist-name-9"></p>
                         </div>

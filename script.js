@@ -12,10 +12,13 @@ let accessToken = "";
 let userID = "";
 let currentURL = window.location.href;
 let songInfo = [];
+let isRunning = false;
 
 
 //runs on page reload
 getToken();
+document.getElementById("spinner").style.visibility = "hidden";
+document.getElementById("fader").style.visibility = "hidden";
 
 //ajax cors anywhere prefilter
 jQuery.ajaxPrefilter(function (options) {
@@ -38,37 +41,48 @@ $("#login").on("click", function (event) {
 //function that runs when the submit button is pressed. just moved the code out of the click handler to make things easier
 function submit() {
     //clears global variables for subsequent searches
-    artistNames = [];
-    artistName = "";
-    playlistID = "";
-    artistID = [];
-    trackIDs = [];
-    songInfo = [];
-    //if user is logged in (access token from query URL present)
-    if (accessToken != "noUser") {
-        artistName = $("#inputArtist").val().trim()
-        artistNames.push(artistName);
-        $.ajax({
-            url: "https://tastedive.com/api/similar?q=" + artistName + "&limit=5&k=346362-Playlist-KUO95N87",
-            method: "GET"
-        }).then(function (response) {
-            for (var i = 0; i < response.Similar.Results.length; i++) {
-                artistNames.push(response.Similar.Results[i].Name);
-            }
-            console.log(artistNames);
-            if (artistNames.length < 2) {
-                alert("Sorry, we didn't return any results for the artist " + artistName + ". Try checking the spelling and try again");
-            }
-            else {
-                getArtists(artistNames, getTopTracks);
-            }
-        });
+    if (isRunning === false) {
+        isRunning = true;
+        artistNames = [];
+        artistName = "";
+        playlistID = "";
+        artistID = [];
+        trackIDs = [];
+        songInfo = [];
+        document.getElementById("spinner").style.visibility = "visible";
+        document.getElementById("fader").style.visibility = "visible";
+        //if user is logged in (access token from query URL present)
+        if (accessToken != "noUser") {
+            artistName = $("#inputArtist").val().trim()
+            artistNames.push(artistName);
+            $.ajax({
+                url: "https://tastedive.com/api/similar?q=" + artistName + "&limit=5&k=346362-Playlist-KUO95N87",
+                method: "GET"
+            }).then(function (response) {
+                for (var i = 0; i < response.Similar.Results.length; i++) {
+                    artistNames.push(response.Similar.Results[i].Name);
+                }
+                console.log(artistNames);
+                if (artistNames.length < 2) {
+                    document.getElementById("spinner").style.visibility = "hidden";
+                    document.getElementById("fader").style.visibility = "hidden";
+                    alert("Sorry, we didn't return any results for the artist " + artistName + ". Try checking the spelling and try again");
+                }
+                else {
+                    getArtists(artistNames, getTopTracks);
+                }
+            });
+        }
+        //if user is not logged in
+        else {
+            alert("You need to log in to Spotify to do that.");
+        }
     }
-    //if user is not logged in
-    else {
-        alert("You need to log in to Spotify to do that.");
+    else{
+        return;
     }
 }
+
 //takes an array of artist names in text and a callback function. converts array into numerical spoitify IDs and pushes to artistID array (global), then runs callbuck function using the array it populated
 function getArtists(artists, callback) {
     let artistCount = 0;
@@ -159,6 +173,7 @@ function tableMaker() {
         newTR.append(releaseTD);
         $("#song-table").append(newTR);
         console.log("pushing object to table");
+        isRunning = false;
     }
 }
 
@@ -262,6 +277,8 @@ function addTracks(tracks) {
         console.log("Playlist fully populated, pushing to page");
         $("#playlist").attr("src", "https://open.spotify.com/embed/playlist/" + playlistID);
         getSongInfo();
+        document.getElementById("spinner").style.visibility = "hidden";
+        document.getElementById("fader").style.visibility = "hidden";
     });
 
 }
