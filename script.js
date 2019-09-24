@@ -76,9 +76,12 @@ function submit() {
         //if user is not logged in
         else {
             alert("You need to log in to Spotify to do that.");
+            document.getElementById("spinner").style.visibility = "hidden";
+            document.getElementById("fader").style.visibility = "hidden";
+            isRunning = false;
         }
     }
-    else{
+    else {
         return;
     }
 }
