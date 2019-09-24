@@ -249,6 +249,7 @@ function getToken() {
             console.log(response);
             userID = response.id;
             console.log("User ID retrieved as: " + userID);
+            document.getElementById("login").style.visibility = "hidden";
         })
     }
 }
