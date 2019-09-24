@@ -2,12 +2,12 @@
     text-align: center;
     background-image: url("https://images.unsplash.com/photo-1453090927415-5f45085b65c0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=731&q=80");
     color: antiquewhite;
+    filter: blur(20 px);
 }
 
 body{
     background-image: url("https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80");
     background-position: center center;
-  
     /* Background image doesn't tile */
     background-repeat: no-repeat;
     
@@ -19,8 +19,5 @@ body{
        on the container's size */
     background-size: cover;
 
-}
-#staticEmail2 {
-    color: antiquewhite;
 }
 
