@@ -19,6 +19,7 @@ let isRunning = false;
 getToken();
 document.getElementById("spinner").style.visibility = "hidden";
 document.getElementById("fader").style.visibility = "hidden";
+document.getElementById("pl-table").style.visibility = "hidden";
 
 //ajax cors anywhere prefilter
 jQuery.ajaxPrefilter(function (options) {
@@ -51,6 +52,7 @@ function submit() {
         songInfo = [];
         document.getElementById("spinner").style.visibility = "visible";
         document.getElementById("fader").style.visibility = "visible";
+        document.getElementById("pl-table").style.visibility = "visible";
         //if user is logged in (access token from query URL present)
         if (accessToken != "noUser") {
             artistName = $("#inputArtist").val().trim()
@@ -78,6 +80,7 @@ function submit() {
             alert("You need to log in to Spotify to do that.");
             document.getElementById("spinner").style.visibility = "hidden";
             document.getElementById("fader").style.visibility = "hidden";
+            document.getElementById("pl-table").style.visibility = "hidden";
             isRunning = false;
         }
     }
