@@ -39,8 +39,8 @@ img {
 }
 
 tr {
-    background-color: rgba(232, 230, 227, 50%);
-    color: white;
+    background-color: rgba(232, 230, 227, 80%);
+    color: black;
 }
 #playlist {
     border: 1px solid rgb(255, 221, 221);

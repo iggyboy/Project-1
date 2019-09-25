@@ -14,7 +14,6 @@ let currentURL = window.location.href;
 let songInfo = [];
 let isRunning = false;
 
-
 //runs on page reload
 getToken();
 document.getElementById("spinner").style.visibility = "hidden";
@@ -27,7 +26,6 @@ jQuery.ajaxPrefilter(function (options) {
         options.url = 'https://cors-anywhere.herokuapp.com/' + options.url;
     }
 });
-
 //click handlers for different elements on the page
 $("#submit").on("click", function (event) {
     event.preventDefault();
@@ -39,11 +37,10 @@ $("#login").on("click", function (event) {
     authorize();
 })
 
-function alerter(str){
+function alerter(str) {
     $("#alert-text").text(str);
-    $('#alert-box').modal(focus)
+    $('#alert-box').modal(focus);
 }
-
 //function that runs when the submit button is pressed. just moved the code out of the click handler to make things easier
 function submit() {
     //clears global variables for subsequent searches
@@ -93,7 +90,6 @@ function submit() {
         return;
     }
 }
-
 //takes an array of artist names in text and a callback function. converts array into numerical spoitify IDs and pushes to artistID array (global), then runs callbuck function using the array it populated
 function getArtists(artists, callback) {
     let artistCount = 0;
@@ -116,7 +112,6 @@ function getArtists(artists, callback) {
         });
     }
 }
-
 //takes the array of track IDs and converts them into javascript objects containing song information,  then runs tableMaker
 function getSongInfo() {
     //constructs query string
@@ -154,7 +149,6 @@ function getSongInfo() {
         tableMaker();
     })
 }
-
 //puts the information from songInfo array on the page
 function tableMaker() {
     //empties exsisting table(s)
@@ -183,7 +177,6 @@ function tableMaker() {
         isRunning = false;
     }
 }
-
 //using numerical spotify IDs in an array (artistID) this function retrieves the top tracks of the artists specified and puts them in the trackIDs array (global)
 function getTopTracks(artists) {
     //couting variable
@@ -212,7 +205,6 @@ function getTopTracks(artists) {
         });
     }
 }
-
 //calls the spotify authorization page and prompts the user to log in.
 function authorize() {
     //if user is not currently logged in (getToken function found no access token), prompts user to authorize the app
@@ -224,7 +216,6 @@ function authorize() {
         alerter("You are already logged in. If your session has expired, please refresh.")
     }
 }
-
 //retrieves the user's authorization token
 function getToken() {
     let url = window.location.href;
@@ -258,7 +249,6 @@ function getToken() {
         })
     }
 }
-
 //adds the tracks in the trackIDs array to the playlist and puts it on the embedded web player
 function addTracks(tracks) {
     let trackRequest = "";
@@ -290,7 +280,6 @@ function addTracks(tracks) {
     });
 
 }
-
 //creates a playlist on the user's spotify account, then callbacks to addtracks
 function makePlaylist(callback) {
     //calls the spotify api to create an empty playlist for the user
@@ -311,4 +300,3 @@ function makePlaylist(callback) {
         callback(trackIDs);
     });
 }
-
