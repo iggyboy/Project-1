@@ -20,3 +20,5 @@ Breakdown of Tasks:
    William and Joshua will focus more on the javascript functionality while Abhishu and Tom will work on the front-end design.
    
 Deployed at https://iggyboy.github.io/Project-1/
+
+Presentation slides: https://docs.google.com/presentation/d/1ZeG9w1njazwhVat_aHHYQ04-QDdbqsMs/edit#slide=id.p1
